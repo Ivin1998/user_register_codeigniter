@@ -1,0 +1,13 @@
+.eye_icon{
+    color: green;
+    cursor: pointer;
+}
+.edit_icon{
+    color: grey;
+    cursor: pointer;
+}
+
+.remove_icon{
+    color: red;
+    cursor: pointer;
+}
