@@ -3,17 +3,22 @@ $(document).ready(function () {
         $.ajax({
             url: 'index.php/welcome/add_record',
             type: "POST",
+            dataType: "JSON",
             data: $('#myform').serialize(),
             success: function (data) {
-                swal.fire({
-                    text: "User details Updated successfully!",
-                    icon: "success",
-                });
-                location.reload();
+                if (data.id == 0) {
+                    $('.firstName').html("Please enter the valid first name");
+                }
+                else {
+                    swal.fire({
+                        text: "User details Updated successfully!",
+                        icon: "success",
+                    });
+                    location.reload();
+                }
             }
         })
     });
-
 });
 
 $(document).ready(function () {
@@ -65,35 +70,56 @@ $(document).ready(function () {
 
     $(".delete_data").click(function () {
         var user_id = $(this).attr('id');
-        $.ajax({
-            url: "index.php/welcome/delete_record",
-            type: "POST",
-            data: { id: user_id },
-            success: function (data) {
-                Swal.fire({
-                    title: 'Are you sure?',
-                    text: "You won't be able to revert this!",
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: 'Yes, delete it!'
-                }).then((result) => {
-                    if (result.isConfirmed) {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: 'btn btn-success',
+            cancelButtonColor: 'btn btn-danger',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: "index.php/welcome/delete_record",
+                    type: "POST",
+                    data: { id: user_id },
+                    success: function (data) {
                         Swal.fire(
                             'Deleted!',
                             'Your file has been deleted.',
                             'success'
                         )
+                        location.reload();
                     }
-                    location.reload();
-
                 })
-
+            }
+            else {
+                Swal.fire(
+                    'Cancelled',
+                    'Your file is safe :)',
+                    'error'
+                )
             }
         })
-    })
+    }
+    )
 
+    $('.view_data').click(function () {
+        var user_id = $(this).attr('id');
+        $.ajax({
+            url: "index.php/welcome/view_record",
+            type: "POST",
+            data: { id: user_id },
+            success: function (data) {
+                $('#modal_edit').click();
+                $('#myform').html(data);
+                $('.modal-title').html('User Details');
+                $('#save').hide();
+            }
+        })
+
+    })
 });
 
 

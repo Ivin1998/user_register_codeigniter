@@ -3,9 +3,6 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Welcome extends CI_Controller
 {
-
-
-
 	/**
 	 * Index Page for this controller.
 	 *
@@ -26,6 +23,7 @@ class Welcome extends CI_Controller
 
 		$this->load->model('MyModel');
 		$this->load->helper('url');
+		$this->load->library('form_validation');
 		$data['users'] = $this->MyModel->get_records();
 
 		$this->load->view('contacts', $data);
@@ -33,22 +31,53 @@ class Welcome extends CI_Controller
 	}
 	public function add_record()
 	{
+		$this->load->library('form_validation');
+		$this->load->helper('url');
+		
 		$first_name = $this->input->post('firstName');
 		$last_name = $this->input->post('lastName');
 		$mobile_number = $this->input->post('mobileNumber');
 		$email = $this->input->post('email');
 		$created_date = $this->input->post('createdDate');
 
-
-		$data = array(
-			'first_name' => $first_name,
-			'last_name' => $last_name,
-			'mobile_number' => $mobile_number,
-			'email_id' => $email,
-			'created_date' => $created_date
-
+		$this->form_validation->set_rules(
+			'firstName',
+			'First Name',
+			'required|min_length[3]',
+			array('required' => 'You must provide a %s.')
 		);
-		$this->MyModel->add_data($data);
+		$this->form_validation->set_rules(
+			'lastName',
+			'Last Name',
+			'required|min_length[3]',
+			array('required' => 'You must provide a %s.')
+		);
+
+
+		if ($this->form_validation->run() == FALSE) {
+			$data = array(
+				'status' => 'incorrect',
+				'id' => 0,
+			);
+			echo json_encode($data);
+
+		} else {
+
+			$data = array(
+				'first_name' => $first_name,
+				'last_name' => $last_name,
+				'mobile_number' => $mobile_number,
+				'email_id' => $email,
+				'created_date' => $created_date
+			);
+			$this->MyModel->add_data($data);
+
+			$data = array(
+				'status' => 'Success',
+				'id' => 1,
+			);
+			echo json_encode($data);
+		}
 	}
 
 	public function edit_record()
@@ -84,6 +113,21 @@ class Welcome extends CI_Controller
 		$id = $this->input->post('id');
 		$this->MyModel->delete_records($id);
 	}
+
+	public function view_record()
+	{
+		$id = $this->input->post('id');
+		$data['record'] = $this->MyModel->view_records($id);
+		$this->load->view('record_view', $data);
+
+	}
+	public function submit_form()
+	{
+		$first_name = $this->input->post('firstName');
+		$last_name = $this->input->post('lastName');
+
+	}
+
 }
 
 ?>

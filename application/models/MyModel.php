@@ -1,7 +1,7 @@
 <?php
 class MyModel extends CI_Model
 {
-    public function get_records()
+ public function get_records()
     {
         $this->load->database();
         $this->db->select();
@@ -42,6 +42,16 @@ class MyModel extends CI_Model
         $this->db->set('is_deleted', '1');
         $this->db->where('unique_id', $id);
         $this->db->update('contacts');
+    }
+
+    public function view_records($id){
+        $this->load->database();
+        $this->db->select();
+        $this->db->from('contacts');
+        $this->db->where('unique_id', $id);
+        $query = $this->db->get(); //executes the select query
+        $result = $query->result(); //result() method is used to retrieve the rows of the result set
+        return $result;
     }
 }
 ?>
