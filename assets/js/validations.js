@@ -4,10 +4,25 @@ $(document).ready(function () {
             url: 'index.php/welcome/add_record',
             type: "POST",
             dataType: "JSON",
-            data: $('#myform').serialize(),
+            data: $('.myform').serialize(),
             success: function (data) {
-                if (data.id == 0) {
+                if (data.id == 0 && data.flag == 1) {
+                    $('#warning_firstName').html("!");
                     $('.firstName').html("Please enter the valid first name");
+                }
+                else if (data.id == 0 && data.flag == 2) {
+                    $('#warning_lastName').html("!");
+                    $('.lastName').html("Please enter the valid last name");
+
+                }
+                else if (data.id == 0 && data.flag == 3) {
+                    $('#warning_email').html("!");
+                    $('.email').html("Please enter the valid email address");
+
+                }
+                else if (data.id == 0 && data.flag == 4) {
+                    $('#warning_mobileNumber').html("!");
+                    $('.mobileNumber').html("Please enter a valid 10 digit phone number");
                 }
                 else {
                     swal.fire({
@@ -20,16 +35,48 @@ $(document).ready(function () {
         })
     });
 });
+$(document).on('keyup', '#firstName, #lastName, #email,#mobileNumber', function () {
+    var firstName = $('#firstName').val();
+    var lastName = $('#lastName').val();
+    var email = $('#email').val();
+    var mobileNumber = $('#mobileNumber').val();
 
+    if (firstName.length > 2) {
+        $('.firstName').html("");
+        $('#warning_firstName').html("");
+    }
+    if (lastName.length > 2) {
+        $('.lastName').html("");
+        $('#warning_lastName').html("");
+
+    }
+    if (email.length > 2) {
+        $('.email').html("");
+        $('#warning_email').html("");
+
+    }
+    if (email.length > 2) {
+        $('.email').html("");
+        $('#warning_email').html("");
+
+    }
+    if (mobileNumber.length == 10) {
+        $('.mobileNumber').html("");
+        $('#warning_mobileNumber').html("");
+
+    }
+});
 $(document).ready(function () {
     $('#modal_edit').click(function () {
         $('#save').show();
         $('#update').hide();
+        $('.view_form').hide();
+        $('.myform').show();
+        $('.myform')[0].reset();
     })
-    $('#reload').click(function () {
-        location.reload();
-    });
 });
+
+
 
 $(document).ready(function () {
     $('.edit_data').click(function () {
@@ -44,11 +91,13 @@ $(document).ready(function () {
                 $('#lastName').val(data.last_name);
                 $('#mobileNumber').val(data.mobile_number);
                 $('#email').val(data.email_id);
-                $('#modal_edit').click();
+                $('#mymodal').modal('show'); //directly trigger the modal
                 $('.modal-title').html('Edit Data');
                 $('#save').hide();
                 $('#update').show();
                 $('#id').val(data.unique_id);
+                $('.view_form').hide();
+                $('.myform').show();
             }
         })
     });
@@ -57,7 +106,7 @@ $(document).ready(function () {
         $.ajax({
             url: "index.php/welcome/update_record",
             type: "POST",
-            data: $('#myform').serialize(),
+            data: $('.myform').serialize(),
             success: function (data) {
                 swal.fire({
                     text: "User details Updated successfully!",
@@ -102,9 +151,7 @@ $(document).ready(function () {
                 )
             }
         })
-    }
-    )
-
+    })
     $('.view_data').click(function () {
         var user_id = $(this).attr('id');
         $.ajax({
@@ -112,14 +159,24 @@ $(document).ready(function () {
             type: "POST",
             data: { id: user_id },
             success: function (data) {
-                $('#modal_edit').click();
-                $('#myform').html(data);
+                $('#mymodal').modal('show');
+                $('.view_form').html(data);
                 $('.modal-title').html('User Details');
                 $('#save').hide();
+                $('.myform').hide();
+                $('.view_form').show();
             }
         })
 
     })
 });
+$(document).ready(function () {
+    $('#myTable').DataTable({
+        dom: 'Blfrtip',
+        buttons: [
+            'copy', 'csv', 'excel', 'pdf', 'print'
+        ]
+    });
 
+});
 

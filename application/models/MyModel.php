@@ -1,4 +1,5 @@
 <?php
+
 class MyModel extends CI_Model
 {
  public function get_records()
@@ -11,7 +12,7 @@ class MyModel extends CI_Model
         $query = $this->db->get();
         $result = $query->result();
         return $result;
-    }
+    }  
 
     public function add_data($data)
     {

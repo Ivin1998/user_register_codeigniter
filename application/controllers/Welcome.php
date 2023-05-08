@@ -33,32 +33,48 @@ class Welcome extends CI_Controller
 	{
 		$this->load->library('form_validation');
 		$this->load->helper('url');
-		
+
 		$first_name = $this->input->post('firstName');
 		$last_name = $this->input->post('lastName');
 		$mobile_number = $this->input->post('mobileNumber');
 		$email = $this->input->post('email');
 		$created_date = $this->input->post('createdDate');
 
-		$this->form_validation->set_rules(
-			'firstName',
-			'First Name',
-			'required|min_length[3]',
-			array('required' => 'You must provide a %s.')
-		);
-		$this->form_validation->set_rules(
-			'lastName',
-			'Last Name',
-			'required|min_length[3]',
-			array('required' => 'You must provide a %s.')
-		);
+		$this->form_validation->set_rules('firstName','First Name','required|min_length[3]|alpha_numeric');
+		$this->form_validation->set_rules('lastName','Last Name','required|min_length[3]|alpha_numeric');
+		$this->form_validation->set_rules('email','Email','required|valid_email');
+		$this->form_validation->set_rules('mobileNumber','mobileNumber','required|regex_match[/^[0-9]{10}$/]');
 
 
 		if ($this->form_validation->run() == FALSE) {
-			$data = array(
-				'status' => 'incorrect',
-				'id' => 0,
-			);
+			if (form_error('firstName')){
+				$data = array(
+					'status' => 'incorrect',
+					'id' => 0,
+					'flag'=>1
+				);
+			}else if(form_error('lastName')){
+				$data = array(
+					'status' => 'incorrect',
+					'id' => 0,
+					'flag'=>2
+				);
+			}else if(form_error('email')){
+				$data = array(
+					'status' => 'incorrect',
+					'id' => 0,
+					'flag'=>3
+				);
+			}
+			else if(form_error('mobileNumber')){
+				$data = array(
+					'status' => 'incorrect',
+					'id' => 0,
+					'flag'=>4
+				);
+			}
+			
+		
 			echo json_encode($data);
 
 		} else {

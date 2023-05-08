@@ -11,3 +11,43 @@
     color: red;
     cursor: pointer;
 }
+
+table {
+    font-size: 13px;
+    font-family: 'Calibri', sans-serif;
+    
+}
+
+.dt-buttons {
+    float: left;
+}
+
+.dataTables_length {
+    margin: 0 0 0 1%;
+}
+#warning_firstName{
+    padding-top: 30px;
+    font-weight: bolder;
+    font-size: larger;
+    text-align: left;
+}
+#warning_lastName{
+    padding-top: 80px;
+    font-weight: bolder;
+    font-size: larger;
+    text-align: left;
+}
+
+#warning_email{
+    padding-top: 90px;
+    font-weight: bolder;
+    font-size: larger;
+    text-align: left;
+}
+
+#warning_mobileNumber{
+    padding-top: 80px;
+    font-weight: bolder;
+    font-size: larger;
+    text-align: left;
+}
