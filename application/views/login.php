@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="../ci/assets/css/style_sidebar.css">
 </head>
 <body class="index_page">
-    <title>fad</title>
+    <title>User Application</title>
     <div class="row" style="width:100%">
         <div class="col-md-2">
         </div>
