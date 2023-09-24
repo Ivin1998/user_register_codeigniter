@@ -18,17 +18,91 @@ class Welcome extends CI_Controller
 	 * map to /index.php/welcome/<method_name>
 	 * @see https://codeigniter.com/userguide3/general/urls.html
 	 */
+
 	public function index()
 	{
+		$this->load->database();
 
-		$this->load->model('MyModel');
 		$this->load->helper('url');
-		$this->load->library('form_validation');
-		$data['users'] = $this->MyModel->get_records();
-
-		$this->load->view('contacts', $data);
-
+		$this->load->view('login');
 	}
+
+	public function records_page()
+	{
+    if ($this->is_authenticated()) {
+
+        $this->load->model('MyModel');
+       
+        $this->load->library('form_validation');
+        $data['users'] = $this->MyModel->get_records();
+		$this->load->helper('url');
+        $this->load->view('contacts', $data);
+    } else {
+		// If authentication fails, generate a JavaScript alert
+		echo '<script>';
+		echo 'alert("Invalid credentials!");';
+		echo 'window.history.back();'; 
+		echo '</script>';
+  }
+}
+
+public function is_authenticated()
+{
+    $username = $this->input->post('user_name');
+    $password = md5($this->input->post('password'));
+    $this->load->database();
+
+    // Assuming your user table is named 'users' and has columns 'email' and 'password'
+    $this->db->where('email', $username);
+    $this->db->where('password', $password);
+    $query = $this->db->get('users');
+
+    if ($query->num_rows() === 1) {
+        // If a user is authenticated, set session variables here
+        $user = $query->row();
+        $this->session->set_userdata('user_id', $user->user_id);
+        $this->session->set_userdata('username', $user->email);
+        return true; // User is authenticated
+    }
+	
+  return false; 
+    // Authentication failed
+}
+public function signup()
+{
+	$this->load->helper('url');
+    $this->load->helper('form'); // Load the Form Helper
+    $this->load->view('signup');
+}
+public function process_signup()
+{	
+	$this->load->database();
+
+	$this->load->helper('url');
+    $this->load->library('form_validation');
+    $this->form_validation->set_rules('username', 'username', 'trim|required|min_length[5]|is_unique[users.username]');
+    $this->form_validation->set_rules('password', 'Password', 'trim|required|min_length[6]');
+    $this->form_validation->set_rules('confirm_password', 'Confirm Password', 'trim|required|matches[password]');
+
+ 
+        // Validation passed, create the user account
+        $this->load->model('MyModel');
+        
+        $username = $this->input->post('username');
+		$password = md5($this->input->post('password'));
+		
+        $data = array(
+            'email' => $username,
+            'password' => $password
+        );
+
+        $this->MyModel->add_update_data($data);
+
+        // Redirect to a success page or any other appropriate action
+        redirect('welcome/index');
+
+}
+
 	public function add_record()
 	{
 		$this->load->library('form_validation');
@@ -40,41 +114,40 @@ class Welcome extends CI_Controller
 		$email = $this->input->post('email');
 		$created_date = $this->input->post('createdDate');
 
-		$this->form_validation->set_rules('firstName','First Name','required|min_length[3]|alpha_numeric');
-		$this->form_validation->set_rules('lastName','Last Name','required|min_length[3]|alpha_numeric');
-		$this->form_validation->set_rules('email','Email','required|valid_email');
-		$this->form_validation->set_rules('mobileNumber','mobileNumber','required|regex_match[/^[0-9]{10}$/]');
+		$this->form_validation->set_rules('firstName', 'First Name', 'required|min_length[3]|alpha_numeric');
+		$this->form_validation->set_rules('lastName', 'Last Name', 'required|min_length[3]|alpha_numeric');
+		$this->form_validation->set_rules('email', 'Email', 'required|valid_email');
+		$this->form_validation->set_rules('mobileNumber', 'mobileNumber', 'required|regex_match[/^[0-9]{10}$/]');
 
 
 		if ($this->form_validation->run() == FALSE) {
-			if (form_error('firstName')){
+			if (form_error('firstName')) {
 				$data = array(
 					'status' => 'incorrect',
 					'id' => 0,
-					'flag'=>1
+					'flag' => 1
 				);
-			}else if(form_error('lastName')){
+			} else if (form_error('lastName')) {
 				$data = array(
 					'status' => 'incorrect',
 					'id' => 0,
-					'flag'=>2
+					'flag' => 2
 				);
-			}else if(form_error('email')){
+			} else if (form_error('email')) {
 				$data = array(
 					'status' => 'incorrect',
 					'id' => 0,
-					'flag'=>3
+					'flag' => 3
+				);
+			} else if (form_error('mobileNumber')) {
+				$data = array(
+					'status' => 'incorrect',
+					'id' => 0,
+					'flag' => 4
 				);
 			}
-			else if(form_error('mobileNumber')){
-				$data = array(
-					'status' => 'incorrect',
-					'id' => 0,
-					'flag'=>4
-				);
-			}
-			
-		
+
+
 			echo json_encode($data);
 
 		} else {
@@ -86,7 +159,7 @@ class Welcome extends CI_Controller
 				'email_id' => $email,
 				'created_date' => $created_date
 			);
-			$this->MyModel->add_data($data);
+			$this->MyModel->add_update_data($data);
 
 			$data = array(
 				'status' => 'Success',
@@ -122,7 +195,7 @@ class Welcome extends CI_Controller
 			'mod_date' => $mod_date,
 
 		);
-		$this->MyModel->update_records($id, $data);
+		$this->MyModel->add_update_data($id, $data);
 	}
 	public function delete_record()
 	{

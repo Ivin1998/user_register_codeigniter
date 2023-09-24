@@ -1,53 +1,274 @@
-.eye_icon{
-    color: green;
-    cursor: pointer;
-}
-.edit_icon{
-    color: grey;
-    cursor: pointer;
+form {
+
+	width: auto;
+	margin-top: auto;
+	margin-bottom: auto;
+	position: relative;
+	row-gap: 5px;
+	justify-content: center;
+	flex-direction: column;
+	padding: 20px;
+/*     box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.2), 0 2px 5px 0 rgba(0, 0, 0, 0.19);
+*/    border-radius: 5px;
+
 }
 
-.remove_icon{
-    color: red;
-    cursor: pointer;
+.dataTables_filter input {
+	margin-left: 10px
+
 }
 
-table {
-    font-size: 13px;
-    font-family: 'Calibri', sans-serif;
-    
+.dataTables_filter label {
+	margin-left: 600px;
+	align-items: center;
+
+}
+
+.dataTables_filter {
+	padding: 8 px;
+	display: inline-block;
+
+
+}
+
+.sorting {
+	text-align: center;
+}
+
+.highlighted {
+	background-color: blanchedalmond;
+	border: 1px solid black;
+}
+
+thead {
+	background-color: aliceblue;
+}
+
+#mytable_paginate {
+	text-align: center;
+
+}
+
+#mytable_info {
+	text-align: center;
+
+}
+
+#mytable_first {
+	padding: 8px 5px;
+	display: inline;
+}
+
+#mytable_previous {
+	padding: 8px 16px;
+	display: inline;
+}
+
+#mytable_next {
+	padding: 8px 16px;
+	display: inline;
+}
+
+#paginate_button.last {
+	padding: 8px 16px;
+	display: inline;
+}
+
+#mytable_info {
+	padding: 10px 16px;
+	display: block;
+}
+
+#mytable_filter {
+	padding-bottom: 10;
+	display: inline;
+	margin: -120;
+}
+
+#mytable_length {
+	padding-top: 15;
+	display: block;
+}
+
+.eye-icon {
+	color: green;
+	cursor: pointer;
+}
+
+.delete-icon {
+	color: red;
+	cursor: pointer;
+}
+
+.edit_icon {
+	cursor: pointer;
+}
+
+.input {
+	width: 100%;
+	padding: 20;  
+}
+
+.login {
+	width: 60%;
+	display: block;
+	background-color: white;
+	box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.2), 0 2px 5px 0 rgba(0, 0, 0, 0.19);
+}
+
+#forgot {
+	text-align: center;
+	cursor: pointer;
+}
+
+.logout {
+	font-size: 25;
+
 }
 
 .dt-buttons {
-    float: left;
+	display: unset;
+
 }
 
-.dataTables_length {
-    margin: 0 0 0 1%;
-}
-#warning_firstName{
-    padding-top: 30px;
-    font-weight: bolder;
-    font-size: larger;
-    text-align: left;
-}
-#warning_lastName{
-    padding-top: 80px;
-    font-weight: bolder;
-    font-size: larger;
-    text-align: left;
+.form-control input {
+	display: inline;
 }
 
-#warning_email{
-    padding-top: 90px;
-    font-weight: bolder;
-    font-size: larger;
-    text-align: left;
+.show {
+	position: relative;
+	text-align: initial;
 }
 
-#warning_mobileNumber{
-    padding-top: 80px;
-    font-weight: bolder;
-    font-size: larger;
-    text-align: left;
+.intro {
+	font-weight: bolder;
 }
+
+.modal-title {
+	position: absolute;
+}
+
+.dashboard {
+	margin-top: 100;
+}
+
+.add_con_align {
+	position: absolute;
+	top: 50;
+	right: -120;
+	float: right;
+	margin: -20;
+}
+
+.header {
+	padding: 10px 16px;
+	background: #198a13;
+	color: #f1f1f1;
+	z-index: 99;
+}
+
+.sticky {
+	position: fixed;
+	top: 0;
+	width: 100%;
+	z-index: 99;
+}
+
+.count {
+	background-color: #555;
+	color: white;
+	text-decoration: none;
+	padding: 15px 26px;
+	position: relative;
+	display: inline-block;
+	border-radius: 2px;
+}
+
+.sub-dropdown {
+	display: none;
+	position: absolute;
+	top: 50%;
+	left: -107%;
+}
+
+.dropdown-content:hover .sub-dropdown {
+	display: block;
+}
+
+.region_table {
+	width: 80%;
+}
+
+.region_style {
+	margin: 0 0 10;
+}
+
+#myInput_upload{
+	all: initial;
+}
+.back{
+	display: flex;
+	margin: 10 10 -5;
+	cursor: pointer;
+}
+.password-wrapper {
+	position: relative;
+}
+
+#toggle-password {
+	position: absolute;
+	top: 50%;
+	right: 5px;
+	transform: translateY(-50%);
+	cursor: pointer;
+}
+.loginnew{
+	padding:12px;
+	background-color:blue;
+	margin-top:20px !important;
+	width: 100%;
+	font-size:20;
+ color: #f1f1f1;
+ font-weight: 800;
+ 
+	}
+	
+	.create_new{
+		padding:18px;
+		background-color:green;
+		margin:20 90;
+		width: 60%;
+		font-size:15;
+		color: #f1f1f1;
+		font-weight: 800;
+	}
+	
+
+	.index_page{
+		background-color: #f0f2f5;
+	}
+	.intro_page{
+		color: blue;
+		margin: 250 50 30 0;
+		
+	}
+.disapprove{
+padding:12px;
+background-color:rgb(255, 0, 0);
+
+color: #f1f1f1;
+font-weight: 800;
+}
+.eye-icon {
+    color: green;
+    cursor: pointer;
+  }
+  
+  .delete-icon {
+    color: red;
+    cursor: pointer;
+  }
+  
+  .edit_icon {
+    cursor: pointer;
+  }

@@ -1,18 +1,40 @@
-<?php
-include 'header.php';
-date_default_timezone_set('Asia/Calcutta');
-
-?>
-
 <!DOCTYPE html>
 <html>
-
 <head>
+
+	<link rel="stylesheet" href="http://localhost:85/ci/assets/css/indexbootstrap.css">
+	<link rel="stylesheet" href="http://localhost:85/ci/assets/css/styles.css">
+	<link rel="stylesheet" href="http://localhost:85/ci/assets/css/bootstrapmin.css" />
+	<link rel="stylesheet" href="http://localhost:85/ci/assets/css/formbootstrap.css">
+	<link rel="stylesheet" href="http://localhost:85/ci/assets/css/styles.css">
+	<link rel="stylesheet" href="http://localhost:85/ci/assets/css/style_sidebar.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" />
+	<script type="text/javascript" src="http://localhost:85/ci/assets/css/sweetalert.js"></script>
+	<script type="text/javascript" src="http://localhost:85/ci/assets/css/jquery.js"></script>
+	<script type="text/javascript" src="http://localhost:85/ci/assets/css/bootstrapjs.js"></script>
+	<script type="text/javascript" src="http://localhost:85/ci/assets/css/datatable1.js"></script> <!-- Pagination -->
+	<script type="text/javascript" src="http://localhost:85/ci/assets/css/datatable2.js"></script>
+	<!-- CSV in database table -->
+	<script type="text/javascript" src="http://localhost:85/ci/assets/css/datatable3.js"></script>
+	<!-- Excel in database table -->
+	<script type="text/javascript" src="http://localhost:85/ci/assets/css/datatable4.js"></script>
+	<!-- PDF button in database table -->
+	<script type="text/javascript" src="http://localhost:85/ci/assets/css/datatable5.js"></script>
+	<!-- Displaying the datatables buttons -->
+	<script type="text/javascript" src="http://localhost:85/ci/assets/css/datatable6.js"></script>
+	<!-- Print in database table -->
+	<script type="text/javascript" src="http://localhost:85/ci/assets/css/datatable7.js"></script>
+	<!-- PDF download in database table -->
+	<script type="text/javascript" src="http://localhost:85/ci/assets/js/validations.js"></script>
+
 	<title>Contacts</title>
 </head>
 
 <body>
-	<h1>User Application</h1>
+
+	<div class="header" id="myHeader">
+		<h2>User Application</h2>
+	</div>
 	<div class="row">
 		<div class="col col-sm-6">
 		</div>
@@ -26,7 +48,8 @@ date_default_timezone_set('Asia/Calcutta');
 			<div class="modal-content">
 				<div class="modal-header">
 					<h5 class="modal-title" id="exampleModalLabel">Add Contact</h5>
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"
+						style="margin-left: 80%;">
 						<span aria-hidden="true">&times;</span>
 					</button>
 				</div>
@@ -94,38 +117,38 @@ date_default_timezone_set('Asia/Calcutta');
 				<?php
 				$no = 1;
 				foreach ($users as $user) { ?>
-				<td>
-					<?php echo $no++; ?>
-				</td>
-				<td>
-					<?php echo $user->first_name ?>
-				</td>
-				<td>
-					<?php echo $user->last_name ?>
-				</td>
-				<td>
-					<?php echo $user->mobile_number ?>
-				</td>
-				<td>
-					<?php echo $user->email_id ?>
-				</td>
-				<td>
-					<?php echo $user->created_date ?>
-				</td>
-				<td>
-					<?php if (!empty($user->mod_date)) {
+					<td>
+						<?php echo $no++; ?>
+					</td>
+					<td>
+						<?php echo $user->first_name ?>
+					</td>
+					<td>
+						<?php echo $user->last_name ?>
+					</td>
+					<td>
+						<?php echo $user->mobile_number ?>
+					</td>
+					<td>
+						<?php echo $user->email_id ?>
+					</td>
+					<td>
+						<?php echo $user->created_date ?>
+					</td>
+					<td>
+						<?php if (!empty($user->mod_date)) {
 							echo $user->mod_date;
 						} ?>
-				</td>
-				<td style="text-align:center">
-					<a class="btn-lg view_data" id="<?php echo $user->unique_id ?>"><i
-							class="fa fa-eye eye_icon"></i></a>
-					<a class="btn-lg edit_data" id="<?php echo $user->unique_id ?>"><i
-							class="fa fa-edit edit_icon"></i></a>
-					<a class=" btn-lg delete_data" id="<?php echo $user->unique_id ?>"><i
-							class="fa fa-trash remove_icon"></i></a>
-				</td>
-				</tr>
+					</td>
+					<td style="text-align:center">
+						<a class=" btn btn-lg view_data view_data eye-icon" id="<?php echo $user->unique_id ?>"><i
+								class=" fa fa-eye"></i></a>
+						<a class="edit_data delete-icon" id="<?php echo $user->unique_id ?>"><i
+								class="fa fa-edit edit_icon"></i></a>
+						<a class=" delete_data remove_icon" id="<?php echo $user->unique_id ?>"><i
+								class="fa fa-trash "></i></a>
+					</td>
+					</tr>
 				<?php } ?>
 		</table>
 	</div>

@@ -1,7 +1,7 @@
 $(document).ready(function () {
     $('#save').click(function () {
         $.ajax({
-            url: 'index.php/welcome/add_record',
+            // url: 'index.php/welcome/add_record',
             type: "POST",
             dataType: "JSON",
             data: $('.myform').serialize(),

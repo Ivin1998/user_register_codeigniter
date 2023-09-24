@@ -14,11 +14,21 @@ class MyModel extends CI_Model
         return $result;
     }  
 
-    public function add_data($data)
-    {
-        $this->load->database();
-        $this->db->insert('contacts', $data);
-    }
+	public function add_update_data($data)
+	{
+		$this->load->database();
+		$this->db->insert('users', $data);
+	
+		if ($this->db->affected_rows() > 0) {
+			return true; // Data inserted successfully
+		} else {
+			// Handle the error, you can log it or return false
+			$error_message = $this->db->error();
+			log_message('error', 'Database error: ' . $error_message['message']);
+			return false;
+		}
+	}
+	
 
     public function get_records_by_id($id)
     {
@@ -27,15 +37,15 @@ class MyModel extends CI_Model
         return $query->row();
     }
 
-    public function update_records($id, $data)
-    {
+    // public function update_records($id, $data)
+    // {
 
-        $this->load->database();
-        $this->db->where('unique_id', $id);
-        $this->db->update('contacts', $data);
-        $affected_rows = $this->db->affected_rows();
-        return $affected_rows;
-    }
+    //     $this->load->database();
+    //     $this->db->where('unique_id', $id);
+    //     $this->db->update('contacts', $data);
+    //     $affected_rows = $this->db->affected_rows();
+    //     return $affected_rows;
+    // }
 
     public function delete_records($id)
     {
