@@ -99,8 +99,10 @@ public function process_signup()
         $this->MyModel->add_update_data($data);
 
         // Redirect to a success page or any other appropriate action
-        redirect('welcome/index');
-
+		echo '<script>';
+		echo 'alert("User Updated!");';
+		echo 'window.history.back();'; 
+		echo '</script>';
 }
 
 	public function add_record()

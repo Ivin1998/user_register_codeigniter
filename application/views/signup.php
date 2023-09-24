@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
     <title>Signup</title>
     <style>
         body {
@@ -74,7 +76,9 @@
         <input type="password"  class="form-control" name="confirm_password"  style ="width:80%" required>
         
         <input type="submit" value="Signup">
-        
+		<a href="..">
+    <input type="button" value="Login" class="btn btn-primary" style="float:right">
+</a>
         <?php echo form_close(); ?>
     </div>
 </body>
